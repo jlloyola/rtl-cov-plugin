@@ -65,15 +65,16 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
 
         @Override
         public List<CoverageElement> getCoverageElements() {
-            return Lists.newArrayList(
-                new CoverageElement("Module", 0),
-                new CoverageElement("Line", 1),
-                new CoverageElement("Conditional", 2),
-                new CoverageElement("Toggle", 3),
-                new CoverageElement("Branch", 4),
-                new CoverageElement("Assertion", 5),
-                new CoverageElement("FSM", 6),
-                new CoverageElement("Other", 7));
+            List<CoverageElement> registerCoverageElements = Lists.newArrayList(
+                new CoverageElement("Module", 0));
+            registerCoverageElements.add(new CoverageElement("Line", 1));
+            registerCoverageElements.add(new CoverageElement("Conditional", 2));
+            registerCoverageElements.add(new CoverageElement("Toggle", 3));
+            registerCoverageElements.add(new CoverageElement("Branch", 4));
+            registerCoverageElements.add(new CoverageElement("Assertion", 5));
+            registerCoverageElements.add(new CoverageElement("FSM", 6));
+            registerCoverageElements.add(new CoverageElement("Other", 7));
+            return registerCoverageElements;
         }
     }
 
@@ -90,11 +91,39 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
             CoverageResult result = null;
             switch (current.getLocalName()) {
                 case "report":
-                    result = new CoverageResult(CoverageElement.REPORT, null,
+                    result = new CoverageResult(CoverageElement.get("Report"), null,
                             getAttribute(current, "name", "") + ": " + getReportName());
                     break;
                 case "module":
                     result = new CoverageResult(CoverageElement.get("Module"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "line":
+                    result = new CoverageResult(CoverageElement.get("Line"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "conditional":
+                    result = new CoverageResult(CoverageElement.get("Conditional"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "toggle":
+                    result = new CoverageResult(CoverageElement.get("Toggle"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "branch":
+                    result = new CoverageResult(CoverageElement.get("Branch"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "assertion":
+                    result = new CoverageResult(CoverageElement.get("Assertion"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "fsm":
+                    result = new CoverageResult(CoverageElement.get("FSM"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
+                case "other":
+                    result = new CoverageResult(CoverageElement.get("Other"), parentResult,
                             getAttribute(current, "name", ""));
                     break;
                 default:
