@@ -13,8 +13,17 @@
             <xsl:attribute name="name">
                 <xsl:value-of select="@name"/>
             </xsl:attribute>
-            <xsl:apply-templates select="module"/>
+            <xsl:apply-templates select="metric"/>
         </report>
+    </xsl:template>
+
+    <xsl:template match="metric">
+        <metric>
+            <xsl:attribute name="name">
+                <xsl:value-of select="@name"/>
+            </xsl:attribute>
+            <xsl:apply-templates select="module"/>
+        </metric>
     </xsl:template>
 
     <xsl:template match="module">

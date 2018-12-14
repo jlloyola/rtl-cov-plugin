@@ -66,14 +66,15 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
         @Override
         public List<CoverageElement> getCoverageElements() {
             List<CoverageElement> registerCoverageElements = Lists.newArrayList(
-                new CoverageElement("Module", 0));
-            registerCoverageElements.add(new CoverageElement("Line", 1));
-            registerCoverageElements.add(new CoverageElement("Conditional", 2));
-            registerCoverageElements.add(new CoverageElement("Toggle", 3));
-            registerCoverageElements.add(new CoverageElement("Branch", 4));
-            registerCoverageElements.add(new CoverageElement("Assertion", 5));
-            registerCoverageElements.add(new CoverageElement("FSM", 6));
-            registerCoverageElements.add(new CoverageElement("Other", 7));
+                new CoverageElement("Metric", 0));
+            // registerCoverageElements.add(new CoverageElement("Module", 1));
+            registerCoverageElements.add(new CoverageElement("line", 2));
+            registerCoverageElements.add(new CoverageElement("cond", 3));
+            registerCoverageElements.add(new CoverageElement("toggle", 4));
+            registerCoverageElements.add(new CoverageElement("branch", 5));
+            registerCoverageElements.add(new CoverageElement("assert", 6));
+            registerCoverageElements.add(new CoverageElement("fsm", 7));
+            registerCoverageElements.add(new CoverageElement("other", 8));
             return registerCoverageElements;
         }
     }
@@ -94,38 +95,42 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
                     result = new CoverageResult(CoverageElement.get("Report"), null,
                             getAttribute(current, "name", "") + ": " + getReportName());
                     break;
+                case "metric":
+                    result = new CoverageResult(CoverageElement.get("Metric"), parentResult,
+                            getAttribute(current, "name", ""));
+                    break;
                 case "module":
-                    result = new CoverageResult(CoverageElement.get("Module"), parentResult,
+                    result = new CoverageResult(CoverageElement.get(parentResult.getName()), parentResult,
                             getAttribute(current, "name", ""));
                     break;
-                case "line":
-                    result = new CoverageResult(CoverageElement.get("Line"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "conditional":
-                    result = new CoverageResult(CoverageElement.get("Conditional"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "toggle":
-                    result = new CoverageResult(CoverageElement.get("Toggle"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "branch":
-                    result = new CoverageResult(CoverageElement.get("Branch"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "assertion":
-                    result = new CoverageResult(CoverageElement.get("Assertion"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "fsm":
-                    result = new CoverageResult(CoverageElement.get("FSM"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
-                case "other":
-                    result = new CoverageResult(CoverageElement.get("Other"), parentResult,
-                            getAttribute(current, "name", ""));
-                    break;
+                // case "line":
+                //     result = new CoverageResult(CoverageElement.get("Line"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "cond":
+                //     result = new CoverageResult(CoverageElement.get("Conditional"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "toggle":
+                //     result = new CoverageResult(CoverageElement.get("Toggle"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "branch":
+                //     result = new CoverageResult(CoverageElement.get("Branch"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "assertion":
+                //     result = new CoverageResult(CoverageElement.get("Assertion"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "fsm":
+                //     result = new CoverageResult(CoverageElement.get("FSM"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
+                // case "other":
+                //     result = new CoverageResult(CoverageElement.get("Other"), parentResult,
+                //             getAttribute(current, "name", ""));
+                //     break;
                 default:
                     break;
             }
@@ -156,49 +161,49 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
                     int covered = Integer.parseInt(lineCoveredAttr);
                     int missed = Integer.parseInt(lineMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Line"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("line"), Ratio.create(covered, covered + missed));
                 }
 
                 if (StringUtils.isNumeric(condCoveredAttr) && StringUtils.isNumeric(condMissedAttr)) {
                     int covered = Integer.parseInt(condCoveredAttr);
                     int missed = Integer.parseInt(condMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Conditional"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("cond"), Ratio.create(covered, covered + missed));
                 }
 
                 if(StringUtils.isNumeric(toggleCoveredAttr) && StringUtils.isNumeric(toggleMissedAttr)) {
                     int covered = Integer.parseInt(toggleCoveredAttr);
                     int missed = Integer.parseInt(toggleMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Toggle"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("toggle"), Ratio.create(covered, covered + missed));
                 }
 
                 if(StringUtils.isNumeric(branchCoveredAttr) && StringUtils.isNumeric(branchMissedAttr)) {
                     int covered = Integer.parseInt(branchCoveredAttr);
                     int missed = Integer.parseInt(branchMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Branch"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("branch"), Ratio.create(covered, covered + missed));
                 }
 
                 if(StringUtils.isNumeric(assertionCoveredAttr) && StringUtils.isNumeric(assertionMissedAttr)) {
                     int covered = Integer.parseInt(assertionCoveredAttr);
                     int missed = Integer.parseInt(assertionMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Assertion"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("assert"), Ratio.create(covered, covered + missed));
                 }
 
                 if(StringUtils.isNumeric(fsmCoveredAttr) && StringUtils.isNumeric(fsmMissedAttr)) {
                     int covered = Integer.parseInt(fsmCoveredAttr);
                     int missed = Integer.parseInt(fsmMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("FSM"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("fsm"), Ratio.create(covered, covered + missed));
                 }
 
                 if(StringUtils.isNumeric(otherCoveredAttr) && StringUtils.isNumeric(otherMissedAttr)) {
                     int covered = Integer.parseInt(otherCoveredAttr);
                     int missed = Integer.parseInt(otherMissedAttr);
 
-                    result.updateCoverage(CoverageElement.get("Other"), Ratio.create(covered, covered + missed));
+                    result.updateCoverage(CoverageElement.get("other"), Ratio.create(covered, covered + missed));
                 }
 
             }
