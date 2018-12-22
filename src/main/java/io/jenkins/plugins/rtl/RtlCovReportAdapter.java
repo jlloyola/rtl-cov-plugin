@@ -103,34 +103,6 @@ public final class RtlCovReportAdapter extends XMLCoverageReportAdapter {
                     result = new CoverageResult(CoverageElement.get(parentResult.getName()), parentResult,
                             getAttribute(current, "name", ""));
                     break;
-                // case "line":
-                //     result = new CoverageResult(CoverageElement.get("Line"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "cond":
-                //     result = new CoverageResult(CoverageElement.get("Conditional"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "toggle":
-                //     result = new CoverageResult(CoverageElement.get("Toggle"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "branch":
-                //     result = new CoverageResult(CoverageElement.get("Branch"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "assertion":
-                //     result = new CoverageResult(CoverageElement.get("Assertion"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "fsm":
-                //     result = new CoverageResult(CoverageElement.get("FSM"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
-                // case "other":
-                //     result = new CoverageResult(CoverageElement.get("Other"), parentResult,
-                //             getAttribute(current, "name", ""));
-                //     break;
                 default:
                     break;
             }
